@@ -49,12 +49,13 @@ build-type:          Simple
 
 -- Extra files to be distributed with the package, such as examples or a
 -- README.
-extra-source-files:  CHANGELOG.md
+extra-source-files:  CHANGELOG.md,
+                     README.md
 
 
 library
   -- Modules exported by the library.
-  -- exposed-modules:
+  exposed-modules: Data.Combinators.TH
 
   -- Modules included in this library but not exported.
   -- other-modules:
@@ -63,7 +64,8 @@ library
   -- other-extensions:
 
   -- Other library packages from which modules are imported.
-  build-depends:       base >=4.12 && <4.13
+  build-depends:       base >=4.12 && <4.13,
+                       template-haskell >= 2.5.0.0 && < 2.16
 
   -- Directories containing source files.
   hs-source-dirs:      src

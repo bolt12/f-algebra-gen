@@ -1,13 +1,12 @@
 {-# LANGUAGE KindSignatures, TypeFamilies, DeriveFunctor, DeriveTraversable,
-    DeriveFoldable, ExistentialQuantification #-}
+    DeriveFoldable #-}
 
 module Main where
 
-import TH
+import Data.Combinators.TH
 import Cp -- Program Calculus Combinators library
-import Data.Functor.Foldable
-import Data.Functor.Foldable.TH
-import Language.Haskell.TH
+import Data.Functor.Foldable -- Recursion schemes library
+import Data.Functor.Foldable.TH -- Recursion schemes makeBaseFunctor
 import Data.List (foldl')
 
 makeCombinator ''ListF
