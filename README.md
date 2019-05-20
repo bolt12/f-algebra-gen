@@ -52,7 +52,7 @@ A simple example on how we can beneficiate from using this special combinator
 when defining catamorphisms using recursion-schemes:
 
 - Without the combinator:
-  ```
+  ```Haskell
   length :: [a] -> Int
   length = cata gene
     where
@@ -61,7 +61,7 @@ when defining catamorphisms using recursion-schemes:
   ```
 
 - With the combinator:
-  ```
+  ```Haskell
   makeCombinator'' ListF
 
   length :: [a] -> Int
