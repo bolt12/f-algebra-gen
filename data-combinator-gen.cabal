@@ -19,7 +19,16 @@ version:             0.1.0.0
 synopsis:            Generate a special combinator from any data type.
 
 -- A longer description of the package.
--- description:
+description: 
+  This library provides a function to generate a special combinator from any data type (GADTs are not currently supported).
+
+  This was inspired by the recursion-schemes library where they have a function to automagically generate a base functor. Although, this new base functor data type has custom constructors and to define the *-morphism algebras turns into boring pattern matching.
+
+  So, this library provides a function called `makeCombinator` that produces a
+  nice combinator to deal with data types as they were defined in terms of Pairs
+  ( (,) ) and Sums (`Either`). With this nice combinator we are able to view a
+  data type as its equivalent categorical isomorphism and manipulate it with an
+  interface similar as the `either` function provided from `base`.
 
 -- URL for the project homepage or repository.
 homepage:            https://github.com/bolt12/data-combinator-gen
@@ -50,7 +59,9 @@ build-type:          Simple
 -- Extra files to be distributed with the package, such as examples or a
 -- README.
 extra-source-files:  CHANGELOG.md,
-                     README.md
+                     README.md,
+                     examples/Cp.hs,
+                     examples/Main.hs
 
 
 library

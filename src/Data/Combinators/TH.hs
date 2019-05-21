@@ -5,6 +5,27 @@ import Control.Monad
 import Data.Char
 
 -- (1) Main generation function -----
+
+{- | Build a special combinator given a data type name.
+e.g.
+
+@
+
+-- List type
+data List a = Nil | List a (List a)
+
+makeCombinator ''List
+@
+
+This example will generate the following code:
+
+@ 
+makeCombinator ''ListF
+ ======>
+  listf f_acw7 f_acw8 Nil = f_acw7 ()
+  listf f_acw7 f_acw8 (Cons a_acw9 a_acwa) = f_acw8 (a_acw9, a_acwa)
+@
+-}
 makeCombinator :: Name -> Q [Dec]
 makeCombinator t = do
     TyConI (DataD _ _ _ _ constructors _) <- reify t

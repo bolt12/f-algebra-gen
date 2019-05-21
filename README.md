@@ -21,7 +21,7 @@ interface similar as the `either` function provided from `base`.
 ## Example
 
 To create this special combinator you just need to call `makeCombinator ''<data
-type name` as in the example below:
+type name>` as in the example below:
 
 ```Haskell
 
