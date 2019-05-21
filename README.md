@@ -2,6 +2,8 @@
 
 Generate a special combinator from any data type.
 
+https://hackage.haskell.org/package/data-combinator-gen-0.1.0.0
+
 ## Description
 
 This library provides a function to generate a special combinator from any data
