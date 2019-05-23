@@ -8,6 +8,9 @@ import Cp -- Program Calculus Combinators library
 import Data.Functor.Foldable -- Recursion schemes library
 import Data.Functor.Foldable.TH -- Recursion schemes makeBaseFunctor
 import Data.List (foldl')
+import Data.Functor.Compose
+
+makeCombinator ''Compose
 
 makeCombinator ''ListF
 

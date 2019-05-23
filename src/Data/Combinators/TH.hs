@@ -28,7 +28,8 @@ makeCombinator ''ListF
 -}
 makeCombinator :: Name -> Q [Dec]
 makeCombinator t = do
-    TyConI (DataD _ _ _ _ constructors _) <- reify t
+    TyConI d <- reify t
+    let constructors = typeInfo d
 
     pe <- genPE "f" (length constructors)
 
@@ -40,8 +41,12 @@ makeCombinator t = do
 -----
 
 -- (2) makeCombinator auxiliary function -----
--- Generates a single function clause
 
+-- Returns type constructors
+typeInfo (DataD _ _ _ _ c _) = c
+typeInfo (NewtypeD _ _ _ _ c _) = [c]
+
+-- Generates a single function clause
 combinClause :: ([PatQ], [ExpQ]) -- Function arguments pattern
              -> (Con, Int) -- (Constructor, Indice of current constructor)
              -> ClauseQ
