@@ -2,7 +2,7 @@
 
 Generate a special combinator from any data type.
 
-https://hackage.haskell.org/package/data-combinator-gen-0.1.0.0
+https://hackage.haskell.org/package/data-combinator-gen-0.1.0.1
 
 ## Description
 
