@@ -1,11 +1,11 @@
 {-# LANGUAGE TypeOperators #-}
 
--- (c) MP-I (1998/9-2006/7) and CP (2005/6-2017/8)
+-- (c) MP-I (1998/9-2006/7) and CP (2005/6-2018/9)
 
 module Cp where
 
-infixl 4  ><
-infixl 5  -|-
+infixl 5  ><
+infixl 4  -|-
 
 -- (1) Product -----------------------------------------------------------------
 
@@ -123,7 +123,7 @@ coassocl = either (i1 . i1) (i2 -|- id)
 distl :: ((c -|- a) >< b) -> (c >< b) -|- (a >< b)
 distl = uncurry (either (curry i1) (curry i2))
 
-distr :: (b >< c -|- a) -> (b >< c) -|- (b >< a)
+distr :: (b >< (c -|- a)) -> (b >< c) -|- (b >< a)
 distr = (swap -|- swap) . distl . swap
 
 -- (6) Class bifunctor ---------------------------------------------------------

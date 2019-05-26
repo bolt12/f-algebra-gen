@@ -1,16 +1,26 @@
 {-# LANGUAGE KindSignatures, TypeFamilies, DeriveFunctor, DeriveTraversable,
-    DeriveFoldable #-}
+    DeriveFoldable, TypeOperators #-}
 
 module Main where
 
 import Data.Combinators.TH
-import Cp -- Program Calculus Combinators library
-import Data.Functor.Foldable -- Recursion schemes library
-import Data.Functor.Foldable.TH -- Recursion schemes makeBaseFunctor
+--import Cp -- Program Calculus Combinators library
+--import Data.Functor.Foldable -- Recursion schemes library
+--import Data.Functor.Foldable.TH -- Recursion schemes makeBaseFunctor
 import Data.List (foldl')
 import Data.Functor.Compose
 
 makeCombinator ''Compose
+
+newtype Fix f = Fix { unFix :: f (Fix f) }
+
+data Tree a = Leaf String | Node [a] deriving (Functor)
+type Hash = Int
+type PartiallySubstantiatedMerkleTree = Fix (((,) Hash) `Compose` Maybe `Compose` Tree)
+
+makeCombinator ''Fix
+
+{-
 
 makeCombinator ''ListF
 
@@ -60,6 +70,9 @@ data B = forall a. Eq a => B [a]
 makeCombinator ''B
 -}
 
+-}
+
 main :: IO ()
 main = undefined
+
 

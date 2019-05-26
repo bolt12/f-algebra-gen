@@ -2,6 +2,10 @@
 
 ## 0.1.0.1 -- YYYY-mm-dd
 
+* Corrected recursion on (,) - it's now right recursive
+
+## 0.1.0.1 -- YYYY-mm-dd
+
 * Added newtype support
 
 ## 0.1.0.0 -- YYYY-mm-dd

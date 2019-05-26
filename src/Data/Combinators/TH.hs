@@ -73,7 +73,7 @@ funClause pF vF pC vC name l i =
 applyConVars :: [ExpQ] -> t -> [a] -> Int -> ExpQ
 applyConVars _ _ [] _             = conE (mkName "()")
 applyConVars varsC _ [_] n        = varsC !! n
-applyConVars varsC name' (_:fs) n = tupE (applyConVars varsC name' fs (n-1) : [varsC !! n])
+applyConVars varsC name' (_:fs) n = tupE ([varsC !! n] ++ [applyConVars varsC name' fs (n-1)])
 
 ------
 
