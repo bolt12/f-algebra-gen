@@ -51,11 +51,11 @@ combinClause :: ([PatQ], [ExpQ]) -- Function arguments pattern
              -> (Con, Int) -- (Constructor, Indice of current constructor)
              -> ClauseQ
 combinClause (patsF, varsF) (NormalC name fields, i) = do (patsC, varsC) <- genPE "a" (length fields)
-                                                          funClause patsF varsF patsC varsC name (length fields) i
+                                                          funClause patsF varsF patsC varsC name i
 combinClause (patsF, varsF) (RecC name fields, i)    = do (patsC, varsC) <- genPE "a" (length fields)
-                                                          funClause patsF varsF patsC varsC name (length fields) i
+                                                          funClause patsF varsF patsC varsC name i
 combinClause (patsF, varsF) (InfixC _ name _, i)     = do (patsC, varsC) <- genPE "a" 2
-                                                          funClause patsF varsF patsC varsC name 2 i
+                                                          funClause patsF varsF patsC varsC name i
 combinClause _ (ForallC{}, _)  = error "makeCombinator: GADTs are not currently supported."
 combinClause _ (GadtC{}, _)    = error "makeCombinator: GADTs are not currently supported."
 combinClause _ (RecGadtC{}, _) = error "makeCombinator: GADTs are not currently supported."
@@ -63,17 +63,17 @@ combinClause _ (RecGadtC{}, _) = error "makeCombinator: GADTs are not currently 
 -----
 
 -- (3) combinClause auxiliary functions -----
-funClause :: [PatQ] -> [ExpQ] -> [PatQ] -> [ExpQ] -> Name -> Int -> Int -> ClauseQ
-funClause pF vF pC vC name l i = 
+funClause :: [PatQ] -> [ExpQ] -> [PatQ] -> [ExpQ] -> Name -> Int -> ClauseQ
+funClause pF vF pC vC name i = 
     clause (pF ++ [conP name pC]) 
            (normalB (appE (vF !! i) 
-                          (applyConVars vC name vC (l - 1)))) 
+                          (applyConVars vC name vC 0))) 
            []
 
 applyConVars :: [ExpQ] -> t -> [a] -> Int -> ExpQ
 applyConVars _ _ [] _             = conE (mkName "()")
 applyConVars varsC _ [_] n        = varsC !! n
-applyConVars varsC name' (_:fs) n = tupE ([(varsC !! n), applyConVars varsC name' fs (n-1)])
+applyConVars varsC name' (_:fs) n = tupE ([(varsC !! n), applyConVars varsC name' fs (n+1)])
 
 ------
 
