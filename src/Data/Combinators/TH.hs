@@ -29,12 +29,13 @@ makeCombinator ''ListF
 makeCombinator :: Name -> Q [Dec]
 makeCombinator t = do
     TyConI d <- reify t
-    let constructors = typeInfo d
+    let constructors = typeInfo d -- Get constructors
 
-    pe <- genPE "f" (length constructors)
+    pe <- genPE "f" (length constructors) -- Generate patterns and expressions 
+                                          -- for each constructor
 
-    let combName = mkName . map toLower . nameBase $ t
-        clauses  = map (combinClause pe) $ zip constructors [0..]
+    let combName = mkName . map toLower . nameBase $ t -- Make the combinator name
+        clauses  = map (combinClause pe) $ zip constructors [0..] -- Create N clauses
     r <- funD combName clauses
     return [r]
 
@@ -46,7 +47,7 @@ makeCombinator t = do
 typeInfo (DataD _ _ _ _ c _) = c
 typeInfo (NewtypeD _ _ _ _ c _) = [c]
 
--- Generates a single function clause
+-- Generates one or more function clauses
 combinClause :: ([PatQ], [ExpQ]) -- Function arguments pattern
              -> (Con, Int) -- (Constructor, Indice of current constructor)
              -> ClauseQ
@@ -63,17 +64,23 @@ combinClause _ (RecGadtC{}, _) = error "makeCombinator: GADTs are not currently 
 -----
 
 -- (3) combinClause auxiliary functions -----
-funClause :: [PatQ] -> [ExpQ] -> [PatQ] -> [ExpQ] -> Name -> Int -> ClauseQ
+
+-- Generates the clause expression
+funClause :: [PatQ] -> [ExpQ] -> [PatQ] -> [ExpQ] 
+          -> Name -- Constructor name
+          -> Int 
+          -> ClauseQ
 funClause pF vF pC vC name i = 
     clause (pF ++ [conP name pC]) 
            (normalB (appE (vF !! i) 
                           (applyConVars vC name vC 0))) 
            []
 
+-- Generates the argument application for the clause right hand side
 applyConVars :: [ExpQ] -> t -> [a] -> Int -> ExpQ
 applyConVars _ _ [] _             = conE (mkName "()")
 applyConVars varsC _ [_] n        = varsC !! n
-applyConVars varsC name' (_:fs) n = tupE ([(varsC !! n), applyConVars varsC name' fs (n+1)])
+applyConVars varsC name' (_:fs) n = tupE [varsC !! n, applyConVars varsC name' fs (n+1)]
 
 ------
 
