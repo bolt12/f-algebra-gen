@@ -1,5 +1,9 @@
 # Revision history for data-combinator-gen
 
+## 0.1.0.4 -- 2019-05-26
+
+* Small fix
+
 ## 0.1.0.3 -- 2019-05-26
 
 * Actually corrected recursion on (,) - it's now right recursive

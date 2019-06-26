@@ -20,10 +20,10 @@ install:
   - ghc --version
   - cabal --version
   - cabal new-update
-#  - cabal new-build --enable-tests --enable-benchmarks
+  - cabal new-build --enable-tests --enable-benchmarks
 
-#script:
-#  - cabal new-test --enable-tests
+script:
+  - cabal new-test --enable-tests
 
 notifications:
   email: false

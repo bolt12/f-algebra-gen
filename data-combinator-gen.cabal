@@ -13,7 +13,7 @@ name:                data-combinator-gen
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:             0.1.0.3
+version:             0.1.0.4
 
 -- A short (one-line) description of the package.
 synopsis:            Generate a special combinator from any data type.
