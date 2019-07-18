@@ -1,12 +1,12 @@
-# Data Combinator Generator
+# F-Algebra Data Combinator Generator
 
-Generate a special combinator from any data type.
+Generate an f-algebra combinator from any data type.
 
 https://hackage.haskell.org/package/data-combinator-gen-0.1.0.1
 
 ## Description
 
-This library provides a function to generate a special combinator from any data
+This library provides a function to generate a special f-algebra combinator from any data
 type (GADTs are not currently supported).
 
 This was inspired by the recursion-schemes library where they have a function to
