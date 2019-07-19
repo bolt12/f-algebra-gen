@@ -2,7 +2,7 @@
 
 Generate an f-algebra combinator from any data type.
 
-https://hackage.haskell.org/package/f-algebra-gen-0.1.0.0
+https://hackage.haskell.org/package/f-algebra-gen-0.1.0.2
 
 ## Description
 
