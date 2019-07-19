@@ -30,7 +30,9 @@ type name>` as in the example below:
 -- List type
 data List a = Nil | List a (List a)
 
-makeCombinator ''List
+makeBaseFunctor ''List
+
+makeCombinator ''ListF
 ```
 
 This example will generate the following code:

@@ -14,7 +14,9 @@ e.g.
 -- List type
 data List a = Nil | List a (List a)
 
-makeCombinator ''List
+makeBaseFunctor ''List
+
+makeCombinator ''ListF
 @
 
 This example will generate the following code:
