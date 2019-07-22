@@ -1,5 +1,6 @@
 sudo: true
 language: haskell
+dist: trusty
 
 git:
   depth: 5
